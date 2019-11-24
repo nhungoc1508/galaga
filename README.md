@@ -4,7 +4,7 @@
 *Introduction to Computer Science*<br />
 ## Students
 Ngoc Hoang (netID nnh245)\
-Zihang Xia (netID zx961)\
+Zihang Xia (netID zx961)
 ## Summary
 Final project for Introduction to Computer Science. \
 A simple implementation of the classic Galaga game. \
