@@ -10,7 +10,7 @@ class playerShip:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.keyHandler = {LEFT: False, RIGHT: False}
+        self.keyHandler = {LEFT: False, RIGHT: False, UP: False}
     
     def display(self):
         global gif
@@ -35,6 +35,11 @@ class playerShip:
                 self.x = 0
             else:
                 self.x -= 5
+    
+    '''def shoot(self):
+        if self.keyHandler[UP]:
+            bullets.shoot()
+            self.keyHandler[UP] = False'''
 
 class single_bullet:
     def __init__(self):
@@ -51,13 +56,18 @@ class single_bullet:
 class bullets:
     def __init__(self):
         self.tray = []
-        self.tray.append(single_bullet())
+        for i in range(2):
+            self.tray.append(single_bullet())
     
     def shoot(self):
-        self.bullet = self.tray[0]
-        self.bullet.display()
-        self.bullet.y -=5
-        #self.tray.append(single_bullet())
+        '''self.tray[0].display()
+        self.tray[0].y -= 5'''
+        if len(self.tray) > 0:
+            self.bullet = self.tray[0]
+            self.bullet.display()
+            self.bullet.y -= 5
+        if self.bullet.y == playerShip.y + 20:
+            self.shoot()
 
 playerShip = playerShip(width/2, height/2)
 bullets = bullets()
@@ -75,6 +85,7 @@ def draw():
         background(bg)
     playerShip.display()
     playerShip.move()
+    #playerShip.shoot()
     bullets.shoot()
     
 def keyPressed():
@@ -85,3 +96,5 @@ def keyPressed():
         elif keyCode == LEFT:
             playerShip.keyHandler[RIGHT] = False
             playerShip.keyHandler[LEFT] = True
+        if keyCode == UP:
+            playerShip.keyHandler[UP] = True
