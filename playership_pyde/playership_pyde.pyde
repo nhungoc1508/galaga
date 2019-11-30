@@ -2,6 +2,10 @@ import os, random
 path = os.getcwd() + "/"
 width = 480
 height = 700
+bg_width = 480
+bg_height = 700
+pS_width = 102
+pS_height = 126
 switch = [1, -1]
 gif = 0
 bg = loadImage(path + "images/background.png")
@@ -10,7 +14,7 @@ class playerShip:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.keyHandler = {LEFT: False, RIGHT: False, UP: False}
+        self.keyHandler = {LEFT: False, RIGHT: False}
     
     def display(self):
         global gif
@@ -22,54 +26,39 @@ class playerShip:
     
     def move(self):
         if self.keyHandler[RIGHT]:
-            if self.x < 0:
-                self.x = width
-            elif self.x > width:
-                self.x = 0
-            else:
+            if self.x+5 < bg_width-pS_width/2:
                 self.x += 5
         if self.keyHandler[LEFT]:
-            if self.x < 0:
-                self.x = width
-            elif self.x > width:
-                self.x = 0
-            else:
+            if self.x-5 > pS_width/2:
                 self.x -= 5
-    
-    '''def shoot(self):
-        if self.keyHandler[UP]:
-            bullets.shoot()
-            self.keyHandler[UP] = False'''
 
 class single_bullet:
-    def __init__(self):
-        self.x = playerShip.x
-        self.y = playerShip.y
-   
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    
     def display(self):
         self.img = loadImage(path + "images/bullet1.png")
         image(self.img, self.x, self.y)
-        
-    def move(self):
-        self.y -= 5
     
+    def update(self):
+        #if self.y <= playerShip.y:
+        self.display()
+        #self.x = playerShip.x
+        self.y = self.y - 20
+
 class bullets:
     def __init__(self):
         self.tray = []
-        for i in range(2):
-            self.tray.append(single_bullet())
-    
+        self.tray.append(single_bullet(playerShip.x, playerShip.y))
+        
     def shoot(self):
-        '''self.tray[0].display()
-        self.tray[0].y -= 5'''
-        if len(self.tray) > 0:
-            self.bullet = self.tray[0]
-            self.bullet.display()
-            self.bullet.y -= 5
-        if self.bullet.y == playerShip.y + 20:
-            self.shoot()
-
-playerShip = playerShip(width/2, height/2)
+        for bullet in self.tray:
+            bullet.update()
+        if self.tray[-1].y == playerShip.y - 80:
+            self.tray.append(single_bullet(playerShip.x, playerShip.y))
+        
+playerShip = playerShip(width/2, bg_height-(pS_height-pS_height/2))
 bullets = bullets()
 
 def setup():
@@ -85,7 +74,6 @@ def draw():
         background(bg)
     playerShip.display()
     playerShip.move()
-    #playerShip.shoot()
     bullets.shoot()
     
 def keyPressed():
@@ -96,5 +84,3 @@ def keyPressed():
         elif keyCode == LEFT:
             playerShip.keyHandler[RIGHT] = False
             playerShip.keyHandler[LEFT] = True
-        if keyCode == UP:
-            playerShip.keyHandler[UP] = True
