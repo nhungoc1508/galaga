@@ -57,6 +57,9 @@ class bullets:
             bullet.update()
         if self.tray[-1].y == playerShip.y - 80:
             self.tray.append(single_bullet(playerShip.x, playerShip.y))
+    
+    # Problems with bullets: movement is ok but right now bullets are skipping 20px
+    # at once. How to make it go 1px (to not miss targets) and speed up?
         
 playerShip = playerShip(width/2, bg_height-(pS_height-pS_height/2))
 bullets = bullets()
