@@ -29,8 +29,23 @@ class Game:
 
     def display(self):
         for i in range(len(self.enemy)):
-            self.enemy[i].display()
+            if self.enemy[i].diecounter==0:
+                self.enemy[i].display()
 
+    def isdead_enemy(self):
+        for i in range(len(self.enemy)):
+            for j in range(len(ps.bullets.tray)):
+                try:
+                    if (ps.bullets.tray[j].x+30 >= self.enemy[i].x >= ps.bullets.tray[j].x-30) and (ps.bullets.tray[j].y+30 >= self.enemy[i].y >= ps.bullets.tray[j].y-30):
+                        if self.enemy[i].diecounter == 0:
+                            ps.bullets.tray.pop(j)
+                        if self.enemy[i].diecounter < 4:
+                            image(self.enemy[i].img[self.enemy[i].diecounter],self.enemy[i].x,self.enemy[i].y)
+                            self.enemy[i].diecounter+=1
+                        else:
+                            enemy.pop(i)
+                except:
+                    continue
 game = Game()
 
 def setup():
@@ -49,6 +64,7 @@ def draw():
         ps.playerShip.move()
         ps.bullets.shoot()
 
+        game.isdead_enemy()
         game.display()
         game.scoreDisplay()
     game.time+=1

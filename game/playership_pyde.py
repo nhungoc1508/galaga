@@ -28,10 +28,10 @@ class playerShip:
     
     def move(self):
         if self.keyHandler[RIGHT]:
-            if self.x+5 < bg_width-pS_width/2:
+            if self.x+5 < bg_width:
                 self.x += 5
         if self.keyHandler[LEFT]:
-            if self.x-5 > pS_width/2:
+            if self.x-5 > 0:
                 self.x -= 5
 
 class single_bullet:

@@ -6,7 +6,7 @@ height = 700
 class enemyShip:
     def __init__(self,score):
         self.diff = score
-        self.dead = 0
+        self.diecounter = 0
         if self.diff < 1000:
             # type is the type of ship
             # type 0 small
@@ -47,9 +47,5 @@ class enemyShip:
     def display(self):
         self.y += 3
         image(self.img[0],self.x,self.y)
+            
 
-    def die(self):
-        image(self.img[1],self.x,self.y)
-        # image(self.img[2],self.x,self.y)
-        # image(self.img[3],self.x,self.y)
-        # image(self.img[4],self.x,self.y)
