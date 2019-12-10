@@ -6,26 +6,24 @@ path = os.getcwd() + "/"
 width = 480
 height = 700
 bg = loadImage(path + "../images/background.png")
-
+convert = [5,25,100]
 class Game:
     def __init__(self):
         self.enemy=[]
         self.time = 0
-        if self.time % 10 == 0:
-            self.enemy.append(es.enemyShip(ps.playerShip.score))
-
+        self.score = 0
     def scoreDisplay(self):
         fill(0)
         textAlign(LEFT)
         textSize(20)
-        text('Score:'+str(ps.playerShip.score), 10, 30)
+        text('Score:'+str(self.score), 10, 30)
 
     def gameOver(self):
         fill(0)
         textAlign(CENTER)
         textSize(50)
         text('GAME OVER!\n')
-        text('Score:' + str(ps.playerShip.score))
+        text('Score:' + str(self.score))
 
     def display(self):
         for i in range(len(self.enemy)):
@@ -43,9 +41,12 @@ class Game:
                             image(self.enemy[i].img[self.enemy[i].diecounter],self.enemy[i].x,self.enemy[i].y)
                             self.enemy[i].diecounter+=1
                         else:
+                            game.score+=convert[enemy[i].type]
                             enemy.pop(i)
+                            
                 except:
                     continue
+            
 game = Game()
 
 def setup():
@@ -68,6 +69,8 @@ def draw():
         game.display()
         game.scoreDisplay()
     game.time+=1
+    if game.time % 10 == 0:
+        game.enemy.append(es.enemyShip(game.score))
 
 def keyPressed():
     if key == CODED:

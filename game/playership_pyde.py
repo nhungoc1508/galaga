@@ -16,7 +16,6 @@ class playerShip:
         self.x = x
         self.y = y
         self.keyHandler = {LEFT: False, RIGHT: False}
-        self.score = 0
 
     def display(self):
         global gif
