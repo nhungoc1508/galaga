@@ -9,3 +9,7 @@ Zihang Xia (netID zx961)
 Final project for Introduction to Computer Science. \
 A simple implementation of the classic Galaga game. \
 Programmed using Processing.
+## Images from the game
+<img src="/images/game_1.png" alt="Image1"/>
+<img src="/images/game_2.png" alt="Image2"/>
+<img src="/images/game_3.png" alt="Image3"/>
