@@ -10,7 +10,12 @@ Final project for Introduction to Computer Science. \
 A simple implementation of the classic Galaga game. \
 Programmed using Processing.
 ## Images from the game
-<img align="center" width="400" src="/images/game_1.png">
-<img src="/images/game_1.png" alt="Image1"/>
-<img src="/images/game_2.png" alt="Image2"/>
-<img src="/images/game_3.png" alt="Image3"/>
+<p align="center">
+  <img width="400" src="/images/game_1.png">
+</p>
+<p align="center">
+  <img width="400" src="/images/game_2.png">
+</p>
+<p align="center">
+  <img width="400" src="/images/game_3.png">
+</p>
