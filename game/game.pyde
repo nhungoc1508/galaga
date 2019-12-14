@@ -3,7 +3,6 @@ player = Minim(this)
 import os, random
 import playership_pyde as ps
 import enemyship as es
-
 path = os.getcwd() + "/"
 width = 480
 height = 700
@@ -26,8 +25,7 @@ class Game:
         self.enemy_down_sounds.append(player.loadFile(path + "../sound/enemy2_down.wav"))
         self.enemy_down_sounds.append(player.loadFile(path + "../sound/enemy3_down.wav"))
         self.player_down_sound = player.loadFile(path + "../sound/me_down.wav")
-        self.bullet_sound = player.loadFile(path + "../sound/bullet.wav")
-        
+        self.bullet_sound = player.loadFile(path + "../sound/bullet.wav")        
 
     def scoreDisplay(self):
         fill(0)
@@ -118,7 +116,6 @@ def setup():
     noStroke()
     imageMode(CENTER)
 
-
 def draw():
     if frameCount % 2 == 0 and not game.dead:
         x = frameCount % height 
@@ -129,7 +126,6 @@ def draw():
         ps.bullets.shoot()
         game.bullet_sound.play()
         game.bullet_sound.rewind()
-
         game.isdead_enemy()
         game.display()
         game.playerDie()
