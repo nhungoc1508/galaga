@@ -3,8 +3,6 @@ import os, random
 path = os.getcwd() + "/../"
 width = 480
 height = 700
-bg_width = 480
-bg_height = 700
 pS_width = 102
 pS_height = 126
 e_width = 57
@@ -46,7 +44,7 @@ class playerShip:
     
     def move(self):
         if self.keyHandler[RIGHT]:
-            if self.x+5 < bg_width:
+            if self.x+5 < width:
                 self.x += 5
         if self.keyHandler[LEFT]:
             if self.x-5 > 0:
@@ -65,30 +63,28 @@ class single_bullet:
         image(self.img, self.x, self.y)
     
     def update(self):
-        #if self.y <= playerShip.y:
         self.display()
-        #self.x = playerShip.x
         self.y = self.y - 20
 
 class bullets:
     def __init__(self):
         self.tray = []
-        self.tray.append(single_bullet(playerShip.x, playerShip.y))
+        self.tray.append(single_bullet(playerShip.x, playerShip.y-pS_height/2))
         
     def shoot(self):
         for bullet in self.tray:
             bullet.update()
-        if self.tray[-1].y == playerShip.y - 80:
-            self.tray.append(single_bullet(playerShip.x, playerShip.y))
+        if self.tray[-1].y == playerShip.y-pS_height/2 - 80:
+            self.tray.append(single_bullet(playerShip.x, playerShip.y-pS_height/2))
         if len(self.tray)>30:
             self.tray.pop(0)
     # Problems with bullets: movement is ok but right now bullets are skipping 20px
     # at once. How to make it go 1px (to not miss targets) and speed up?
 
-playerShip = playerShip(width/2, bg_height-pS_height/2)
+playerShip = playerShip(width/2, height-pS_height/2)
 bullets = bullets()
 
-def setup():
+'''def setup():
     size(width, height)
     background(bg)
     frameRate(20)
@@ -101,7 +97,7 @@ def draw():
         background(bg)
     playerShip.display()
     playerShip.move()
-    bullets.shoot()
+    bullets.shoot()'''
     
 def keyPressed():
     if key == CODED:
