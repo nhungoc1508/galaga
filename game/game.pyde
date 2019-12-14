@@ -27,22 +27,50 @@ class Game:
 
     def display(self):
         for i in range(len(self.enemy)):
-            if self.enemy[i].diecounter==0:
-                self.enemy[i].display()
+            if self.enemy[i].type == 1:
+                if self.enemy[i].diecounter==0:
+                    self.enemy[i].display()
+            if self.enemy[i].type == 2:
+                if self.enemy[i].diecounter<=7:
+                    self.enemy[i].display()           
+            if self.enemy[i].type == 3:
+                if self.enemy[i].diecounter<=15:
+                    self.enemy[i].display()
 
     def isdead_enemy(self):
         for i in range(len(self.enemy)):
             for j in range(len(ps.bullets.tray)):
                 try:
                     if (ps.bullets.tray[j].x+30 >= self.enemy[i].x >= ps.bullets.tray[j].x-30) and (ps.bullets.tray[j].y+30 >= self.enemy[i].y >= ps.bullets.tray[j].y-30):
-                        if self.enemy[i].diecounter == 0:
-                            ps.bullets.tray.pop(j)
-                        if self.enemy[i].diecounter < 4:
-                            image(self.enemy[i].img[self.enemy[i].diecounter],self.enemy[i].x,self.enemy[i].y)
-                            self.enemy[i].diecounter+=1
-                        else:
-                            game.score+=convert[enemy[i].type]
-                            enemy.pop(i)
+                        if self.enemy[i].type == 1:
+                            if self.enemy[i].diecounter == 0:
+                                ps.bullets.tray[j].x = -1000
+                            if self.enemy[i].diecounter < 4:
+                                image(self.enemy[i].img[self.enemy[i].diecounter],self.enemy[i].x,self.enemy[i].y)
+                                self.enemy[i].diecounter+=1
+                            else:
+                                game.score+=convert[self.enemy[i].type-1]
+                                self.enemy.pop(i)
+                        elif self.enemy[i].type == 2:
+                            if self.enemy[i].diecounter < 7:
+                                ps.bullets.tray[j].x = -1000
+                                self.enemy[i].diecounter+=1
+                            elif self.enemy[i].diecounter < 11:
+                                image(self.enemy[i].img[self.enemy[i].diecounter-7],self.enemy[i].x,self.enemy[i].y)
+                                self.enemy[i].diecounter+=1
+                            else:
+                                game.score+=convert[self.enemy[i].type-1]
+                                self.enemy.pop(i)
+                        elif self.enemy[i].type == 3:
+                            if self.enemy[i].diecounter < 15:
+                                ps.bullets.tray[j].x = -1000
+                                self.enemy[i].diecounter+=1
+                            elif self.enemy[i].diecounter < 19:
+                                image(self.enemy[i].img[self.enemy[i].diecounter-7],self.enemy[i].x,self.enemy[i].y)
+                                self.enemy[i].diecounter+=1
+                            else:
+                                game.score+=convert[self.enemy[i].type-1]
+                                self.enemy.pop(i)
                             
                 except:
                     continue
@@ -69,7 +97,7 @@ def draw():
         game.display()
         game.scoreDisplay()
     game.time+=1
-    if game.time % 10 == 0:
+    if game.time % 50 == 0:
         game.enemy.append(es.enemyShip(game.score))
 
 def keyPressed():

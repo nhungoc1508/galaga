@@ -58,6 +58,7 @@ class bullets:
             bullet.update()
         if self.tray[-1].y == playerShip.y - 80:
             self.tray.append(single_bullet(playerShip.x, playerShip.y))
+
         if len(self.tray)>30:
             self.tray.pop(0)
     # Problems with bullets: movement is ok but right now bullets are skipping 20px
