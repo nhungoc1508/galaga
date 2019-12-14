@@ -9,11 +9,11 @@ e_width = 57
 e_height = 43
 switch = [1, -1]
 gif = 0
-ex = 0
 bg = loadImage(path + "images/background.png")
 
 class playerShip:
     def __init__(self, x, y):
+        self.ex = 0
         self.x = x
         self.y = y
         self.dead = False
@@ -24,7 +24,6 @@ class playerShip:
 
     def display(self):
         global gif
-        global ex
         if not self.dead:
             self.img = []
             self.img.append(loadImage(path + "images/me1.png"))
@@ -37,9 +36,9 @@ class playerShip:
             self.destroy.append(loadImage(path + "images/me_destroy_2.png"))
             self.destroy.append(loadImage(path + "images/me_destroy_3.png"))
             self.destroy.append(loadImage(path + "images/me_destroy_4.png"))
-            image(self.destroy[ex], self.x, self.y)
-            ex += 1
-        if ex == 4:
+            image(self.destroy[self.ex], self.x, self.y)
+            self.ex += 1
+        if self.ex == 4:
             self.explode = True
     
     def move(self):
@@ -90,7 +89,6 @@ bullets = bullets()
     frameRate(20)
     noStroke()
     imageMode(CENTER)
-
 def draw():
     background(bg)
     if frameCount % 12 == 0:

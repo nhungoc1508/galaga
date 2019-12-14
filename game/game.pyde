@@ -5,6 +5,8 @@ import enemyship as es
 path = os.getcwd() + "/"
 width = 480
 height = 700
+pS_width = 102
+pS_height = 126
 bg = loadImage(path + "../images/background.png")
 convert = [5,25,100]
 
@@ -112,6 +114,11 @@ def draw():
         game.enemy.append(es.enemyShip(game.score))
     if game.dead:
         game.gameOver()
+
+def mouseClicked():
+    if game.dead:
+        game.__init__()
+        ps.playerShip.__init__(width/2, height-pS_height/2)
 
 def keyPressed():
     if key == CODED:
